@@ -6,6 +6,7 @@ import {Router, Route, hashHistory} from 'react-router'
 import {createStore} from 'redux'
 import {Provider} from 'react-redux'
 import {Main} from './components/Main'
+import {LoginContainer} from './containers/LoginContainer'
 import {FilesContainer} from './containers/FilesContainer'
 import {SeedContainer} from './containers/SeedContainer'
 import {AccountContainer} from './containers/AccountContainer'
@@ -16,7 +17,8 @@ import Loading from 'react-loading'
   
 // set routes
 const routes = <Route component={Main}>
-  <Route path='/' component={FilesContainer} />
+  <Route path='/' component={LoginContainer} />
+  <Route path='/files' component={FilesContainer} />
   <Route path='/seeding' component={SeedContainer} />
   <Route path='/account' component={AccountContainer} />
 </Route>
@@ -25,7 +27,8 @@ const routes = <Route component={Main}>
 ReactDOM.render(
 	<div>
 	  <div className="innerLoad">
-	  	<h3 className="h3load">initializing-fileswarm</h3>
+	  	<h3 className="h3load">
+      <img src={'NGinnever_Just_Will_It_LogoTagline.svg'} style={{height: 235, marginTop: 10, marginLeft: 5, marginRight: 0}} /></h3>
 	  	<div className="lbar">
   	  <Loading type='bars' color='#fff' />
   	  </div>

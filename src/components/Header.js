@@ -9,18 +9,12 @@ export const Header = React.createClass({
 		console.log(this.props.options)
 		return(
 			<header className="toolbar toolbar-header" style={{flexDirection:'row' }}>
-			    <img src={'logo.svg'} style={{height: 25, marginTop: 5, marginLeft: 5, marginRight: 0}} />
-			  <div className="toolbar-actions" style={{marginLeft: 25, marginTop: -31}}>
+			    <img src={'NGinnever_Just_Will_It_Logo.svg'} style={{height: 25, marginTop: 12, marginLeft: 5, marginRight: 0}} />
+			  <div className="toolbar-actions" style={{marginLeft: 160, marginTop: -35}}>
 
 			    <div className="btn-group">
 			      <button className="btn btn-default">
 			        <span className="icon icon-home"></span>
-			      </button>
-			      <button className="btn btn-default">
-			        <span className="icon icon-download"></span>
-			      </button>
-			      <button className="btn btn-default">
-			        <span className="icon icon-folder"></span>
 			      </button>
 			      <button className="btn btn-default">
 			        <span className="icon icon-book"></span>
@@ -29,7 +23,7 @@ export const Header = React.createClass({
 
 			    <button className="btn btn-default">
 			      <span className="icon icon-network icon-text" style={{color: '#20BE6F'}}></span>
-			      {this.props.online} Files Online
+			      {this.props.online} Assets Online
 			    </button>
 			    <button className="btn btn-default pull-right" onClick={this.props.openAccounts}>
 			      <span className="icon icon-user pull-right"></span>

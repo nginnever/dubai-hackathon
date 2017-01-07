@@ -9,6 +9,7 @@ export const DashboardContainer = React.createClass({
 			file: 'nav-group-item active',
 			seed: 'nav-group-item',
 			account: 'nav-group-item',
+      login: 'nav-group-item',
 			active: 'file'
 		}
 	},
@@ -29,6 +30,7 @@ export const DashboardContainer = React.createClass({
         file={this.state.file} 
         seed={this.state.seed}
         account={this.state.account}
+        login={this.state.login}
         setActive={this.setActive} />
 		)
 	}

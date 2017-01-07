@@ -130,7 +130,7 @@ function getInitFiles (acc, _user) {
     console.log(_manager.userFiles(web3.eth.accounts[acc])[0])
 
     console.log(fileshash)
-    if (fileshash === '0x0000000000000000000000000000000000000000000000000000000000000000') {
+    if (fileshash === '0x') {
       if (_user.length <= acc) {
         for (var i = 1; i <= acc; i++) {
           if (_user[i] === undefined) _user.splice(i, 1, tempUser[0])
