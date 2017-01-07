@@ -6,11 +6,11 @@ import {Dashboard} from '../components/Dashboard'
 export const DashboardContainer = React.createClass({
 	getInitialState: function() {
 		return{
-			file: 'nav-group-item active',
+			file: 'nav-group-item',
 			seed: 'nav-group-item',
 			account: 'nav-group-item',
-      login: 'nav-group-item',
-			active: 'file'
+      login: 'nav-group-item active',
+			active: 'login'
 		}
 	},
   setActive: function(selected) {

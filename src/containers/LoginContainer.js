@@ -6,9 +6,12 @@ export const LoginContainer = React.createClass({
   componentWillMount: function() {
     console.log('login container')
   },
+  createUser: function() {
+    alert('New User!')
+  },
   render: function() {
     return (
-      <Login />
+      <Login createUser={this.createUser} />
     )
   }
 })

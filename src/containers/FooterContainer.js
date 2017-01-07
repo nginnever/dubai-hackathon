@@ -47,26 +47,6 @@ export const FooterContainer = React.createClass({
       console.log(err)
     })
   },
-  startSeeding: function() {
-    var currentStore = store.getState()
-
-    if (currentStore.seedReducer.toJSON().disk === 0 || currentStore.seedReducer.toJSON().disk === undefined) {
-      alert('Set amount of disk space to seed')
-      return
-    }
-
-    if (this.state.seeding === false) {
-      this.setState({
-        seeding: true
-      })
-      api.startSeeding()
-    } else {
-      this.setState({
-        seeding: false
-      })
-      api.stopSeeding()
-    }
-  },
 	render: function() {
 		return (
       <Footer
@@ -76,7 +56,6 @@ export const FooterContainer = React.createClass({
         openUnlock = {this.openUnlock} 
         unlocked={this.state.unlocked}
         activeAccount={this.state.activeAccount} 
-        startSeeding={this.startSeeding} 
         seeding={this.state.seeding} />
 		)
 	}

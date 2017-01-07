@@ -6,8 +6,18 @@ export const Login = React.createClass({
   mixins: [PureRenderMixin],
   render: function() {
     return(
+      <div>
+      <div>
+        <h5 className="login-text">
+          Welcome to Just Will It! Begin by creating an account or selecting an existing one.
+        </h5>  
+      </div>
       <div className="logger">
         <form>
+          <div className="form-group">
+            <label>User Name</label>
+            <input type="name" className="form-control" placeholder="Name" />
+          </div>
           <div className="form-group">
             <label>Email address</label>
             <input type="email" className="form-control" placeholder="Email" />
@@ -32,31 +42,14 @@ export const Login = React.createClass({
           </select>
           <div className="checkbox">
             <label>
-              <input type="checkbox" /> This is a checkbox 
-            </label>
-          </div>
-          <div className="checkbox">
-            <label>
-              <input type="checkbox" /> This is a checkbox too
-            </label>
-          </div>
-          <div className="radio">
-            <label>
-              <input type="radio" name="radios" checked />
-              Keep your options open
-            </label>
-          </div>
-          <div className="radio">
-            <label>
-              <input type="radio" name="radios" />
-              Be sure to remember to check for unknown unknowns
+              <input type="checkbox" />Ready to take control of my identity and assets via the p2p web!
             </label>
           </div>
           <div className="form-actions">
-            <button type="submit" className="btn btn-form btn-default">Cancel</button>
-            <Link to={'/files'} className="btn btn-form btn-primary" onClick={() => this.props.startSeeding()}>OK</Link>
+            <Link to={'/files'} className="btn btn-form btn-primary" onClick={() => this.props.createUser()}>Create New User</Link>
           </div>
         </form>
+      </div>
       </div>
     )
   }

@@ -250,5 +250,19 @@ th {
 .logger {
   margin: 0 auto;
   margin-top: 30px;
-  width: 200px;
+  width: 400px;
+}
+
+.login-text {
+  text-align: center;
+}
+
+.nounder {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    height: 60px;
+
+    text-decoration: none;
+    color: initial;
 }
