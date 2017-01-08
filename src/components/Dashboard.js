@@ -16,10 +16,6 @@ export const Dashboard = React.createClass({
 			    <span className="icon icon-folder"></span>
 			    Assets
 			  </Link>
-			  <Link to={'/seeding'} className={this.props.seed} onClick={() => this.props.setActive('seed')}>
-			    <span className="icon icon-upload"></span>
-			    Willed Assets
-			  </Link>
 			  <Link to={'/account'} className={this.props.account} onClick={() => this.props.setActive('account')}>
 			    <span className="icon icon-book"></span>
 			    Account Stats

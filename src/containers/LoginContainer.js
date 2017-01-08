@@ -7,7 +7,7 @@ export const LoginContainer = React.createClass({
     console.log('login container')
   },
   createUser: function() {
-    alert('New User!')
+    alert('New User ID: 0xa8e36383970825dfcc6beb137e802db050bd0d66 Created! This is the public key of your Ethereum address tied to your new p2p identity. Thank you for registering with Just will it.')
   },
   render: function() {
     return (

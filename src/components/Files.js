@@ -11,24 +11,24 @@ export const Files = React.createClass({
 			  <thead className="bgcolor">
 			    <tr>
 			      <th className="seedcenter" style={{width: 200}}> Upload File</th>
-			      <th className="seedcenter" style={{width: 200}}> Contract Settings</th>
+			      <th className="seedcenter" style={{width: 200}}> Beneficiary Settings</th>
 			    </tr>
 			  </thead>
 			  <tbody className="bgcolor">
 			  	<tr>
 			      <td className="seedcenter"> Select file[0] (no dynamic array support yet) </td>
-			      <td className="seedcenter"> File Ξther Value (Higher values will seed longer) </td>
+			      <td className="seedcenter"> Ξther ID of beneficiary </td>
 			    </tr>
 			    <tr className="seedcenter">
 			      <td><input ref="uploader" type="file" accept="*" onChange={() => this.props.getFile(this.refs.uploader)} multiple></input>
 			      </td>
-			      <td className="seedcenter"><input ref="filev" type="text" size="15"/></td>
+			      <td className="seedcenter"><input ref="filev" type="text" size="50"/></td>
 			    </tr>
 			    <tr className="seedcenter">
 			      <td>
               IPFS Multihash: 
             </td>
-            <td className="seedcenter"> <button className="btn btn-primary" onClick={() => this.props.upload(this.refs.filev)}>Upload</button></td>
+            <td className="seedcenter"> <button className="btn btn-primary" onClick={() => this.props.upload(this.refs.filev)}>Will Asset</button></td>
 			    </tr>
 			    <tr>
 			      <td className="seedcenter">{this.props.hash}</td>

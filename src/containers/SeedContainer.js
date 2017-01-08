@@ -15,7 +15,6 @@ export const SeedContainer = React.createClass({
 		      <td>{currentStore.seedReducer.toJSON().user[0].chunks[i].file}</td>
 		      <td>{currentStore.seedReducer.toJSON().user[0].chunks[i].address}</td>
 		      <td>{currentStore.seedReducer.toJSON().user[0].chunks[i].size}</td>
-		      <td>{currentStore.seedReducer.toJSON().user[0].chunks[i].success}</td>
 		    </tr>
     	)
     }
