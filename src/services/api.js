@@ -14,7 +14,9 @@ const concat = require('concat-stream')
 const ipfs = window.IpfsApi('localhost', '5001')
 const abiFile = require('../utils/abi.js').file
 const abiManager = require('../utils/abi.js').manager
+const abiJustWillIt = require('../utils/abi.js').justwillit
 const managerAddy = '0x991074989f21c23e3390d8286fa1fdd7dfae4a5c'
+const justwillitaddy = '0xf25253644053fba7cf36f0e4fc7cce7112cf092a'
 const CHUNK_SIZE = 262144
 // import lightwallet from 'eth-lightwallet'
 // import web3hook from 'hooked-web3-provider'
@@ -110,9 +112,8 @@ function getInitFiles (acc, _user) {
       {
         files: [
           {
-            hash: 'test-file',
+            hash: 'QmaDRyt7KzVQuity39z63aADcpJzvDYeGpmJRF9cT3Xp4b',
             name: 'test.jpg',
-            size: 20309209,
             address: '0x'
           }
         ]
@@ -124,30 +125,22 @@ function getInitFiles (acc, _user) {
     }
 
     const _manager = getManagerContract()
-    var fileshash = _manager.userFiles(web3.eth.accounts[acc])[0]
+    var fileshash = _manager.clients(web3.eth.accounts[acc])[0]
 
     console.log('database files hash: ')
-    console.log(_manager.userFiles(web3.eth.accounts[acc])[0])
+    console.log(_manager.clients(web3.eth.accounts[acc])[0])
 
     console.log(fileshash)
-    if (fileshash === '0x') {
+    if (fileshash === '0x0000000000000000000000000000000000000000000000000000000000000000') {
       if (_user.length <= acc) {
         for (var i = 1; i <= acc; i++) {
           if (_user[i] === undefined) _user.splice(i, 1, tempUser[0])
         }
       }
 
-      console.log('@@@@@@@@@@@@')
-      console.log(_user)
-
       store.dispatch({
         type: 'GET_FILES',
         user: { user: _user }
-      })
-      var fonline = _manager.filecount().c[0]
-      store.dispatch({
-        type: 'GET_ONLINE',
-        online: { online: fonline }
       })
 
       resolve()
@@ -166,23 +159,12 @@ function getInitFiles (acc, _user) {
             console.log(userArr)
 
             if (userArr[0] === undefined) {
-              console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
               userArr = tempUser
             }
-
-            var fonline = _manager.filecount().c[0]
-
-            console.log('files online')
-            console.log(fonline)
 
             store.dispatch({
               type: 'GET_FILES',
               user: { user: userArr }
-            })
-
-            store.dispatch({
-              type: 'GET_ONLINE',
-              online: { online: fonline }
             })
             
             resolve()
@@ -197,8 +179,8 @@ function getInitFiles (acc, _user) {
 }
 
 function getManagerContract () {
-  var manager = web3.eth.contract(abiManager)
-  var managerInst = manager.at(managerAddy)
+  var manager = web3.eth.contract(abiJustWillIt)
+  var managerInst = manager.at(justwillitaddy)
 
   return managerInst
 }
@@ -330,133 +312,12 @@ function getSeeds () {
   return
 }
 
-function c () {
-  // grab the current seeds from the store.
-  var currentStore = store.getState()
-  var chunks = currentStore.seedReducer.toJSON().user[currentStore.accountReducer.toJSON().activeAccount]
-  var _managerInst = getManagerContract()
-
-  console.log('challenge function chunks')
-  console.log(chunks)
-
-  // for each seed contract, get the latest challenge hash
-  each(chunks.chunks, (element, callback) => {
-    if (stopSeed) {
-      callback()
-      return
-    }
-    console.log(element.address)
-    console.log('-------------------')
-    var _filesInst = getFileContract(element.address)
-    if (_filesInst.address == 'test.jpg') {
-      callback()
-      return
-    }
-
-    _filesInst.challengeHash((err, res) => {
-      if (err) {
-        console.log(err)
-      }
-      console.log(res)
-
-      // check to see if the round number has increased beyond the seeders 
-      // round count. If the seeders count is lower then the seeders has not
-      // challenged the new round.
-      // If round counts are equal, try setting a new challenge on the contract
-      console.log('*********************')
-      console.log(_filesInst.seeders(web3.eth.accounts[currentStore.accountReducer.toJSON().activeAccount])[2].c[0])
-      console.log(_filesInst.round().c[0])
-
-      // if (_filesInst.challengeHash() === '0x0000000000000000000000000000000000000000000000000000000000000000') {
-      //   callback()
-      //   return
-      // }
-
-      if (_filesInst.seeders(web3.eth.accounts[currentStore.accountReducer.toJSON().activeAccount])[2].c[0] === _filesInst.round().c[0] || 
-          _filesInst.challengeHash() === '0x0000000000000000000000000000000000000000000000000000000000000000') {
-        console.log('setting new challenge')
-        _filesInst.setNewChallenge({from: web3.eth.accounts[currentStore.accountReducer.toJSON().activeAccount], gas: 3000000})
-        callback()
-        return
-      } else {
-        console.log('answering challenge')
-        // if the seeders round number is lower then we can answer challenge
-        // ipfs get the chunks (should be in local storage)
-        var _h = _filesInst.challengeHash()
-        _h = '1220' + _h.slice(2, _h.length)
-        ipfs.get(new Buffer(_h, 'hex'), (err, res) => {
-          if (err) {
-            console.log(err)
-          }
-
-          // slice the first 100 bytes
-          if (res) {
-            res.pipe(concat((_files) => {
-              _files[0].content.pipe(concat((_content) => {
-                console.log('returned data from challenge hash')
-                //console.log(_content)
-
-                // we need to take a smaller chunk from the full chunk
-                // for the hash to be stored in the contract 
-                // since contracts can only verify 32 bytes atm
-                // TODO: account for chunks < 100 bytes
-                var s =  _content.toString('hex')
-                console.log(s)
-                console.log(s.length)
-                s = '0x' + s
-
-
-                _filesInst.challenge(s, {from: web3.eth.accounts[currentStore.accountReducer.toJSON().activeAccount], gas: 3000000}, (err, res) => {
-                  if (err) console.log(err)
-
-                  setTimeout(wait2(_filesInst), 20000)
-
-                  function wait2(_f) {
-                    if (stopSeed) {
-                      callback()
-                      return
-                    }
-                    //console.log('!!!!!!!!!!!!!!!!!!!!!!!!!')
-                    console.log('new challenge info')
-                    //console.log(_f.test())
-                    //console.log('balance')
-                    console.log(_f.balance().c[0])
-                    //console.log(_f.seeders(web3.eth.accounts[currentStore.accountReducer.toJSON().activeAccount])[2].c[0])
-                    //console.log(_f.seeders(web3.eth.accounts[currentStore.accountReducer.toJSON().activeAccount])[0])
-                    // update UI state when finished
-
-                    const newb = web3.fromWei(web3.eth.getBalance(web3.eth.accounts[currentStore.accountReducer.toJSON().activeAccount]))
-                    
-                    //user[account].files.contract = managerInst.files(managerInst.filecount() - 1)
-
-                    // dispatch the new balance
-                    store.dispatch({
-                      type: 'GET_BALANCE',
-                      balance: {balance: newb.c}
-                    })
-                  }
-                  //callback()
-                })
-
-              }))
-            }))
-          }
-          callback()
-        })
-      }
-    })
-    
-  }, (err) => {
-    console.log('finshed awnsering challenges')
-  })
-
-
   // send the hex of the chunk to the contract
 
   // update UI state with new challenge reward. 
 
   // TODO: adjust timings of payouts 
-}
+
 
 // ACCOUNT API
 export const getBalance = (num) => {
@@ -467,7 +328,6 @@ export const getBalance = (num) => {
       type: 'GET_BALANCE',
       balance: { balance: balance.c }
     })
-    console.log('inside getBalance')
     resolve(balance)
   })
 }
@@ -478,7 +338,6 @@ export const setAccount = (num) => {
       type: 'GET_ACCOUNT',
       activeAccount: { activeAccount: num }
     })
-    console.log('inside getAccount')
     resolve(true)
   })
 }
@@ -491,7 +350,6 @@ export const getAccounts = () => {
         type: 'GET_ACCOUNTS',
         accounts: { accounts: result }
       })
-      console.log('inside getAccounts')
       resolve(result)
     })
   })
@@ -520,25 +378,21 @@ export const init = () => {
   console.log('calling set account store')
   return setAccount(0)
     .then((res) => {
-      console.log('after set account')
       console.log(res)
       console.log('getting accounts from geth')
     })
     .then(() => getAccounts())
     .then((res) => {
-      console.log('after get accounts')
       console.log(res)
       console.log('getting balance from store')
     })
     .then(() => getBalance(0))
     .then((res) => {
-      console.log('after get balance')
       console.log(res)
       console.log('init files')
     })
     .then(() => getInitFiles(0))
     .then(() => {
-      console.log('after init files')
       console.log('init seeds')
     })
     .then(() => getInitSeeds(0))
@@ -606,13 +460,11 @@ export const stopSeeding = () => {
 }
 
 export const initSeed = (acc) => {
-  console.log('in initSeed api')
-  console.log(acc)
   getInitSeeds(acc)
 }
 
 // FILES API
-export const upload = (hash, value, account, name, size) => {
+export const upload = (hash, value, account, name) => {
   return new Promise((resolve, reject) => {
     if (account === undefined) { account = 0 }
 
@@ -624,167 +476,208 @@ export const upload = (hash, value, account, name, size) => {
     user[account].files.push({
       hash: hash,
       name: name,
-      size: size,
       //balance: value, this will be set by the client when rendering the dom, not hard coded
-      address: '0x'
+      address: value
     })
-    
-    console.log('NEW USER FILES ARRAY')
-    console.log(user)
 
-    // set new contract with file hash
-    var fh = new Buffer(bs58.decode(hash)).toString('hex')
-    fh = fh.slice(4, fh.length)
-    fh = '0x' + fh
-
-    managerInst.createFile(fh, 42320000, {from: web3.eth.accounts[account], value: value.toString(), gas:3000000}, (err, res) => {
+    ipfs.add(new Buffer(JSON.stringify(user)), (err, res) => {
+      if (err) {
+        console.log(err)
+      }
+      console.log('returned new hashed user object')
       console.log(res)
-      console.log(err)
-      console.log(managerInst.files(managerInst.filecount() - 1))
-    })
+
+      console.log('NEW USER FILES ARRAY')
+      console.log(user)
+
+      // set new contract with file hash
+      var fh = new Buffer(bs58.decode(res[0].hash)).toString('hex')
+      fh = fh.slice(4, fh.length)
+      fh = '0x' + fh
+
+      managerInst.updateClient(fh, {from: web3.eth.accounts[account], gas:3000000}, (err, res) => {
+       console.log(res)
+       console.log(err)
+
+      })
     // wait for tx to be mined
     // TODO: use solidity events
     setTimeout(wait, 40000)
+    
+    alert('Your transaction has been sent to the blockchain, please allow up to 40 seconds for it to confirm.')
 
     function wait() {
-      // find dag links and create the chunks in file contract
+      console.log('WEEEEE')
 
-      // TODO: listen to solidity events instead of wait()
+      // dispatch the new balance
+      const newb = web3.fromWei(web3.eth.getBalance(web3.eth.accounts[currentStore.accountReducer.toJSON().activeAccount]))
 
-      // get the balance of the file contract
-      // Get the new file contract address
-      console.log('new file contract addy')
-      console.log(managerInst.userFiles(web3.eth.accounts[account])[2])
-      console.log('userFiles')
-      
-      var fileAddy = managerInst.userFiles(web3.eth.accounts[account])[2]
-      var fileInst = getFileContract(fileAddy)
-
-      console.log('new file info')
-      console.log('-------')
-      console.log(fileInst)
-      console.log(fileInst.balance())
-      
-      // Set chunks
-      ipfs.object.get(hash, (err, res) => {
-        console.log('OBJECT GET RETURN')
-        if (err) {
-          console.log(err)
-        }
-        //console.log(res)
-        if (res.links.length === 0) {
-
-          ipfs.get(hash, (err, res) => {
-            if (err) {
-              console.log(err)
-            }
-            res.pipe(concat((_files) => {
-              _files[0].content.pipe(concat((_content) => {
-                console.log('returned data from object get with no links')
-                console.log(_content.length)
-
-                // we need to take a smaller chunk from the full chunk
-                // for the hash to be stored in the contract 
-                // since contracts can only verify 32 bytes atm
-                var smallChunk =  _content.toString('hex')
-                smallChunk = smallChunk.slice(0, 100)
-
-                // input format for verifying chunk
-                // this is for seeding as well
-                console.log(smallChunk.length)
-
-                //protobuf encode the smaller chunk
-                ipfs.add(new Buffer(smallChunk, 'hex'), (err, res) => {
-                  if (err) {
-                    console.log(err)
-                  }
-                  console.log('IPFS hash of contract sized chunk')
-                  console.log(res)
-                  var dh = new Buffer(bs58.decode(res[0].hash)).toString('hex')
-                  console.log(dh)
-                  dh = '0x' + dh.slice(4, dh.length)
-                  console.log(dh)
-
-                  // TODO: THis doesn't always work, may be fixed now as long as this happens
-                  // after the file contract is mined in the manager contract
-                  fileInst.addChunk(dh, {from: web3.eth.accounts[account], gas: 3000000}, (err, res) => {
-                    if (err) console.log(err)
-                  })
-
-                  // set the new file contract address in the user object
-                  console.log(fileAddy)
-
-                  user[account].files[user[account].files.length - 1].address = fileAddy
-
-                  ipfs.add(new Buffer(JSON.stringify(user)), (err, res) => {
-                    if (err) {
-                      console.log(err)
-                    }
-                    console.log('----IPFS add user files res----')
-                    console.log(res)
-
-                    // var _files = currentStore.filesReducer.toJSON().user[currentStore.accountReducer.toJSON().activeAccount]
-                    // console.log('files object from store')
-                    // console.log(_files)
-
-                    // set the new users object hash in the manager contract
-                    var ts = new Buffer(bs58.decode(res[0].hash)).toString('hex')
-                    console.log(ts)
-                    ts = ts.slice(4, ts.length)
-                    ts = '0x'+ts
-                    console.log('New users hash')
-                    console.log(ts)
-
-                    console.log('CHECKING ADDRESS BEFORE CONTRACT CREATE FILE')
-                    console.log(web3.eth.accounts[account])
-
-                    // set new user in contract
-                    managerInst.updateUser(ts, {from: web3.eth.accounts[account], gas:3000000}, (err, res) => {
-                      setTimeout(wait2, 30000)
-
-                      function wait2() {
-                        console.log(fileInst.chunks(0))
-                        // update UI state when finished
-                        console.log('new account balance')
-                        const newb = web3.fromWei(web3.eth.getBalance(web3.eth.accounts[currentStore.accountReducer.toJSON().activeAccount]))
-
-                        // dispatch the new balance
-                        store.dispatch({
-                          type: 'GET_BALANCE',
-                          balance: {balance: newb.c}
-                        })
-                        
-                        // dispatch new user files object
-                        store.dispatch({
-                          type: 'GET_FILES',
-                          user: { user: user }
-                        })
-                      }
-                    })
-
-                    
-                  })
-                })
-              }))
-            }))
-            
-            console.log(res)
-          })
-        } else {
-          console.log('links > 0')
-          // set the number of chunks in the contract
-          fileInst.setNumChunks(res.links.length, {from: web3.eth.accounts[0], gas: 1000000})
-          // for now we assume all objects will be files
-          // and each file will contain one level of chunks
-          // see possible hash problems with larger files
-          for (var i = 0; i < res.links.length; i++) {
-
-          }
-        }
+      store.dispatch({
+       type: 'GET_BALANCE',
+       balance: {balance: newb.c}
+      })
+        
+      // dispatch new user files object
+      store.dispatch({
+       type: 'GET_FILES',
+       user: { user: user }
       })
 
-      // console.log(managerInst.userFiles(web3.eth.accounts[account]))
+      ipfs.get(res[0].hash, (err, res) => {
+        if(err){
+          console.log(err)
+        }
+
+        console.log(res)
+
+        res.pipe(concat((_files) => {
+          _files[0].content.pipe(concat((_content) => {
+            console.log(JSON.parse(_content))
+          }))
+        }))
+      
+      })
     }
+
+   })
+
+    //   // find dag links and create the chunks in file contract
+
+    //   // TODO: listen to solidity events instead of wait()
+
+    //   // get the balance of the file contract
+    //   // Get the new file contract address
+    //   console.log('new file contract addy')
+    //   console.log(managerInst.userFiles(web3.eth.accounts[account])[2])
+    //   console.log('userFiles')
+      
+    //   var fileAddy = managerInst.userFiles(web3.eth.accounts[account])[2]
+    //   var fileInst = getFileContract(fileAddy)
+
+    //   console.log('new file info')
+    //   console.log('-------')
+    //   console.log(fileInst)
+    //   console.log(fileInst.balance())
+      
+    //   // Set chunks
+    //   ipfs.object.get(hash, (err, res) => {
+    //     console.log('OBJECT GET RETURN')
+    //     if (err) {
+    //       console.log(err)
+    //     }
+    //     //console.log(res)
+    //     if (res.links.length === 0) {
+
+    //       ipfs.get(hash, (err, res) => {
+    //         if (err) {
+    //           console.log(err)
+    //         }
+    //         res.pipe(concat((_files) => {
+    //           _files[0].content.pipe(concat((_content) => {
+    //             console.log('returned data from object get with no links')
+    //             console.log(_content.length)
+
+    //             // we need to take a smaller chunk from the full chunk
+    //             // for the hash to be stored in the contract 
+    //             // since contracts can only verify 32 bytes atm
+    //             var smallChunk =  _content.toString('hex')
+    //             smallChunk = smallChunk.slice(0, 100)
+
+    //             // input format for verifying chunk
+    //             // this is for seeding as well
+    //             console.log(smallChunk.length)
+
+    //             //protobuf encode the smaller chunk
+    //             ipfs.add(new Buffer(smallChunk, 'hex'), (err, res) => {
+    //               if (err) {
+    //                 console.log(err)
+    //               }
+    //               console.log('IPFS hash of contract sized chunk')
+    //               console.log(res)
+    //               var dh = new Buffer(bs58.decode(res[0].hash)).toString('hex')
+    //               console.log(dh)
+    //               dh = '0x' + dh.slice(4, dh.length)
+    //               console.log(dh)
+
+    //               // TODO: THis doesn't always work, may be fixed now as long as this happens
+    //               // after the file contract is mined in the manager contract
+    //               fileInst.addChunk(dh, {from: web3.eth.accounts[account], gas: 3000000}, (err, res) => {
+    //                 if (err) console.log(err)
+    //               })
+
+    //               // set the new file contract address in the user object
+    //               console.log(fileAddy)
+
+    //               user[account].files[user[account].files.length - 1].address = fileAddy
+
+    //               ipfs.add(new Buffer(JSON.stringify(user)), (err, res) => {
+    //                 if (err) {
+    //                   console.log(err)
+    //                 }
+    //                 console.log('----IPFS add user files res----')
+    //                 console.log(res)
+
+    //                 // var _files = currentStore.filesReducer.toJSON().user[currentStore.accountReducer.toJSON().activeAccount]
+    //                 // console.log('files object from store')
+    //                 // console.log(_files)
+
+    //                 // set the new users object hash in the manager contract
+    //                 var ts = new Buffer(bs58.decode(res[0].hash)).toString('hex')
+    //                 console.log(ts)
+    //                 ts = ts.slice(4, ts.length)
+    //                 ts = '0x'+ts
+    //                 console.log('New users hash')
+    //                 console.log(ts)
+
+    //                 console.log('CHECKING ADDRESS BEFORE CONTRACT CREATE FILE')
+    //                 console.log(web3.eth.accounts[account])
+
+    //                 // set new user in contract
+    //                 managerInst.updateUser(ts, {from: web3.eth.accounts[account], gas:3000000}, (err, res) => {
+    //                   setTimeout(wait2, 30000)
+
+    //                   function wait2() {
+    //                     console.log(fileInst.chunks(0))
+    //                     // update UI state when finished
+    //                     console.log('new account balance')
+    //                     const newb = web3.fromWei(web3.eth.getBalance(web3.eth.accounts[currentStore.accountReducer.toJSON().activeAccount]))
+
+    //                     // dispatch the new balance
+    //                     store.dispatch({
+    //                       type: 'GET_BALANCE',
+    //                       balance: {balance: newb.c}
+    //                     })
+                        
+    //                     // dispatch new user files object
+    //                     store.dispatch({
+    //                       type: 'GET_FILES',
+    //                       user: { user: user }
+    //                     })
+    //                   }
+    //                 })
+
+                    
+    //               })
+    //             })
+    //           }))
+    //         }))
+            
+    //         console.log(res)
+    //       })
+    //     } else {
+    //       console.log('links > 0')
+    //       // set the number of chunks in the contract
+    //       fileInst.setNumChunks(res.links.length, {from: web3.eth.accounts[0], gas: 1000000})
+    //       // for now we assume all objects will be files
+    //       // and each file will contain one level of chunks
+    //       // see possible hash problems with larger files
+    //       for (var i = 0; i < res.links.length; i++) {
+
+    //       }
+    //     }
+    //   })
+
+    //   // console.log(managerInst.userFiles(web3.eth.accounts[account]))
 
   })
 }

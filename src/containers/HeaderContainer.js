@@ -31,17 +31,14 @@ export const HeaderContainer = React.createClass({
 		var _this = this
 
 		store.subscribe(function() {
-			console.log('header store subscribe triggered')
 			currentStore = store.getState()
 			_this.setState({
 				balance: currentStore.accountReducer.toJSON().balance,
 				activeAccount: currentStore.accountReducer.toJSON().activeAccount,
         online: currentStore.filesReducer.toJSON().online
 			})
-      console.log('rerendering accounts drop down')
       _this.renderAccounts()
 		})
-    console.log('rendering accounts 1st time')
     _this.renderAccounts()
     _this.selectAcc({value: 0})
 	},

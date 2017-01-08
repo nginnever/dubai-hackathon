@@ -10,7 +10,7 @@ export const Header = React.createClass({
 		return(
 			<header className="toolbar toolbar-header" style={{flexDirection:'row' }}>
 			    <img src={'NGinnever_Just_Will_It_Logo.svg'} style={{height: 25, marginTop: 12, marginLeft: 5, marginRight: 0}} />
-			  <div className="toolbar-actions" style={{marginLeft: 160, marginTop: -35}}>
+			  <div className="toolbar-actions" style={{marginLeft: 150, marginTop: -35}}>
 
 			    <div className="btn-group">
 			      <button className="btn btn-default">
@@ -21,10 +21,6 @@ export const Header = React.createClass({
 			      </button>
 			    </div>
 
-			    <button className="btn btn-default">
-			      <span className="icon icon-network icon-text" style={{color: '#20BE6F'}}></span>
-			      {this.props.online} Assets Online
-			    </button>
 			    <button className="btn btn-default pull-right" onClick={this.props.openAccounts}>
 			      <span className="icon icon-user pull-right"></span>
 			    </button>
@@ -40,7 +36,7 @@ export const Header = React.createClass({
 
 			    <button className="btn btn-default pull-right">
 			      
-			      Balance: Ξ{this.props.balance[0] + '.' + this.props.balance[1] + this.props.balance[2]}
+			      ID Balance: Ξ{this.props.balance[0] + '.' + this.props.balance[1] + this.props.balance[2]}
 			    </button>
 			  </div>
 			</header>

@@ -16,7 +16,6 @@ export const FooterContainer = React.createClass({
 	componentWillMount: function() {
 		var _this = this
     store.subscribe(function() {
-      console.log('footer store subscription hit')
       var currentStore = store.getState()
       _this.setState({
         activeAccount: currentStore.accountReducer.toJSON().activeAccount,

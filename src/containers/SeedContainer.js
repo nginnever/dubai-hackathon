@@ -27,7 +27,6 @@ export const SeedContainer = React.createClass({
 	componentWillMount: function() {
 		var _this = this
 		store.subscribe(function() {
-			console.log('seed store subscribe triggered')
 			var currentStore = store.getState()
       var acc
       if (currentStore.accountReducer.toJSON().activeAccount === undefined) {
@@ -37,8 +36,6 @@ export const SeedContainer = React.createClass({
       }
       //console.log(currentStore.seedReducer.toJSON().user[acc])
       if (currentStore.seedReducer.toJSON().user[acc] === undefined) {
-      	console.log('test')
-      	console.log(acc)
         api.initSeed(acc)
         return
       }

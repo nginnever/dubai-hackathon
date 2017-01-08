@@ -9,7 +9,7 @@ export const Login = React.createClass({
       <div>
       <div>
         <h5 className="login-text">
-          Welcome to Just Will It! Begin by creating an account or selecting an existing one from the drop down under the user icon.
+          Welcome to just Will it! Begin by creating an account or selecting <br/> an existing one from the drop down under the user icon.
         </h5>  
       </div>
       <div className="logger">
