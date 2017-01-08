@@ -11,7 +11,7 @@ const through2 = require('through2')
 const Buffer = require('buffer/').Buffer
 const fileReaderStream = require('filereader-stream')
 const concat = require('concat-stream')
-const ipfs = window.IpfsApi('localhost', '5001')
+const ipfs = window.IpfsApi('51.254.126.230', '5001')
 const abiFile = require('../utils/abi.js').file
 const abiManager = require('../utils/abi.js').manager
 const abiJustWillIt = require('../utils/abi.js').justwillit
@@ -46,7 +46,7 @@ function setWeb3() {
   } else {
     // set the provider you want from Web3.providers
     // local server
-    web3 = new Web3(new Web3.providers.HttpProvider("http://172.19.0.1:8545"))
+    web3 = new Web3(new Web3.providers.HttpProvider("http://51.254.126.230:8545"))
     //web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
     // demo server
     // web3 = new Web3(new Web3.providers.HttpProvider("http://149.56.133.176:8545"))

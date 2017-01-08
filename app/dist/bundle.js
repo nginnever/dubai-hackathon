@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "5a10b6660bdf84de1e80"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "7bff3f2fec8f2725ff3e"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -36285,7 +36285,7 @@
 	var Buffer = __webpack_require__(382).Buffer;
 	var fileReaderStream = __webpack_require__(765);
 	var concat = __webpack_require__(777);
-	var ipfs = window.IpfsApi('localhost', '5001');
+	var ipfs = window.IpfsApi('51.254.126.230', '5001');
 	var abiFile = __webpack_require__(787).file;
 	var abiManager = __webpack_require__(787).manager;
 	var abiJustWillIt = __webpack_require__(787).justwillit;
@@ -36320,7 +36320,7 @@
 	  } else {
 	    // set the provider you want from Web3.providers
 	    // local server
-	    web3 = new Web3(new Web3.providers.HttpProvider("http://172.19.0.1:8545"));
+	    web3 = new Web3(new Web3.providers.HttpProvider("http://51.254.126.230:8545"));
 	    //web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
 	    // demo server
 	    // web3 = new Web3(new Web3.providers.HttpProvider("http://149.56.133.176:8545"))
