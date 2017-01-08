@@ -43,17 +43,6 @@ Now when a lawyer (or authorized ID by the contract) wants to certify that ID 1e
 
 This command will simply move the deceased ID to a list that gives permission to the clients to move the Willed_Assets to their respective ID. The client can have a claim assets button on the app that will generate a new user object with what the blockchain says is valid.
 
-Problems with this.
-
-There is a possible attack vector here in a fully p2p system whereby you can't verify that the application client isn't uploading bogus data to the blockchain. How do you know that the user didn't just take a picture of someone else's house and claim it as their own? It opens up a whole can of worms and the web of trust model where you could have lawyers signing hashes of images they agree the client owns. 
-
-
-
-
-A distributed file storage platform built with <a href="ipfs.io">IPFS</a> and <a href="ethereum.org">Ethereum</a>. Get paid to host files and pay seeders to host your files. Fileswarm is using a blockchain for publishing permissions on files and maintains registries for file properties like seeder health, value, and links to <a href="https://github.com/jbenet/random-ideas/issues/20">merkle-dag</a> objects. Your data is chunked and stored on nodes in the IPFS network and ready for you to retrieve at any time via [dht query](https://github.com/ipfs/go-ipfs/issues/1396#issuecomment-113445913). Cryptographically secure challenges  ensure that your data persists at a cost less than that of traditional companies. Private files can be encrypted by the clients preferred algorithm before seeding.
-
-*Fileswarm is in early development and SHOULD NOT be used with real ether. Beware if you venture off testnets.
-
 The Alpha client can be accessed here http://localhost:8080/ipfs/QmR2nmPqpMBxyA2msZvnVokiz7EdKZd8g5D325jhqunpWH
 
 ## Table of Contents
