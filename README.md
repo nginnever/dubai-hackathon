@@ -85,14 +85,12 @@ See also [CHANGELOG](https://github.com/nginnever/fileswarm/blob/master/CHANGELO
 
 #### Uploading-Downloading
 
-When uploading a file, the application will chunk the file and create [merkle dag objects](https://github.com/ipfs/specs/tree/master/merkledag) with IPFS. You must select an input value in Ether to supply the file contract that will be created next to fund the seeders that will be responding to the file's challenges. The rate that file contracts set new challenges is fixed so assuming that there is always a seeder responding, the more value supplied the longer the file will be seeded. Your file is attached to your Ethereum public key. An identity like uPort can be applied to this key and with your key the files uploaded can be retrieved from any other location. 
-
 
 TODO: Get cost metrics
 
 ## Install
 
-fileswarm is a react/redux application and can be ran in the browser or with electron.
+just_Will_it is a react/redux application and can be ran in the browser or with electron.
 
 requirements:
 
