@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "6b4002c8d80a41d026b0"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "2e82c458664a3e941650"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -36320,8 +36320,8 @@
 	  } else {
 	    // set the provider you want from Web3.providers
 	    // local server
-	    //web3 = new Web3(new Web3.providers.HttpProvider("http://192.168.0.28:8545"))
-	    web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+	    web3 = new Web3(new Web3.providers.HttpProvider("http://51.254.126.230:8545"));
+	    //web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
 	    // demo server
 	    // web3 = new Web3(new Web3.providers.HttpProvider("http://149.56.133.176:8545"))
 	  }
