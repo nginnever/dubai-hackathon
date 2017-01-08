@@ -1,6 +1,6 @@
-![](https://ipfs.io/ipfs/QmUqiP7KBUJgEcAkK7LzbQEeyQaYDrcGLUw8Gm9gtqTX1v)
-![](https://ipfs.io/ipfs/QmSZqvpASNXqeKHtb4rvTh29gYGFrFUGWTPtJxi8Rfs8xf)
-![](https://ipfs.io/ipfs/QmPqmaHKDJRGmavbSMDkxMD26M3KD4xg96FvX86UyKKq6x)
+![](https://ipfs.io/ipfs)
+![](https://ipfs.io/ipfs)
+![](https://ipfs.io/ipfs)
 
 # dubai-hackathon
 prototype for a distributed asset ledger and issuance system.
