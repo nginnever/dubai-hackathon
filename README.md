@@ -39,7 +39,7 @@ The prototype application will generate a p2p ID: This will be an input box for 
 
 ### Registration
 
-Upon submitting a request will be made to a local running ethereum client to generate a new wallet.  Shortly after the application will send a transaction to a smart contract to create a new registry for that ID.  This entry will be a mapping of ID to IPFS hash, so when querying a user by ID you get back a hash that you can use to consult ipfs for the actual meta data of a user. There will be a sign in field as well on this page with fields for ID and password that will link to the application.
+Upon submitting a request will be made to a local running ethereum client to generate a new wallet.  Shortly after the application will send a transaction to a smart contract to create a new registry for that ID.  This entry will be a mapping of ID to IPFS hash, so when querying a user by ID you get back a hash that you can use to consult ipfs for the actual meta data of a user. This can be used to sign the metadata in the ipfs network with ethereum transactions allowing the smart contract to act as a portal for distributed identity. Similar projects like uPort explore this further.
 
 ### Willing assets
 
