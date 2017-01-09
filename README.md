@@ -1,23 +1,49 @@
-![](https://ipfs.io/ipfs)
-![](https://ipfs.io/ipfs)
-![](https://ipfs.io/ipfs)
+![](https://ipfs.io/ipfs/QmatALcooE5Lo48k8HFT5D9Nw2RdzobZjZVhbpUbQKtBE1)
+![](https://ipfs.io/ipfs/QmcrGt2mXPrmmUzYUYC9nJvpNR3UwmopHMFRLEy5qvirYa)
+![](https://ipfs.io/ipfs/QmWWvarS7YRbsfFJaJ2YRvfLmXKFzMqRHziJAwa9BqWjq6)
 
-# dubai-hackathon
-prototype for a distributed asset ledger and issuance system.
+# just Will It
+prototype for a distributed asset ledger backed by Ethereum blockchain and IPFS content addressing network.
+
+## Table of Contents
+
+- [Project Status](#project-status)
+- [How It Works](#how-it-works)
+  - [p2p Identification](#p2p-ID)
+  - [Registration](#registration)
+  - [Verifcication] (#verifcication)
+- [Install](#install)
+  - [Dev Server](#dev-server)
+  - [Build Source](#build-source)
+- [Quick Start Guide](#quickstart-guide)
+  - [Requirements](#requirements)
+  - [Testnet](#testnet)
+  - [Init](#init)
+  - [Upload](#upload)
+  - [Seed](#seed)
+- [Contribute](#contribute)
+- [Roadmap](#roadmap)
+- [License](#license)
+
 
 Hackathon links
 
 http://www.hackathon.io/blockchain-virtual-govhack/projects
 
-Prototype overview:
+## How It Works
 
-The system works like this.
+just Will It works generally as follows.
 
-I'll create a simple landing page that asks the user to generate a p2p ID: This will be an input box for a name, email, and password (optional a profile pic), a message about remembering this password blah blah, and a submit button. 
+### p2p-ID
+The prototype application will generate a p2p ID: This will be an input box for a name, email, and password (optional a profile pic), a message about remembering this password, and a submit button. The ID generated is the same identification used to generate Ethereum transactions.
 
-Upon submitting a request will be made to a local running ethereum client to generate a new wallet.  Shortly after the application will send a transaction to a smart contract to create a new registry for that ID.  This entry will be a mapping of ID to IPFS hash, so when querying a user by ID you get back a hash that you can use to consult ipfs for the actual meta data of a user (what I presume everyone is doing when they are using ipfs here).  This will get printed to the landing page as your ID. There will be a sign in field as well on this page with fields for ID and password that will link to the application.
+### Registration
 
-The application will look sort of like a file system where you can upload and track the assets you have uploaded. You can assign IDs to uploaded pictures of an asset. So essentially you will see a folder listing asset - ipfs hash - ID
+Upon submitting a request will be made to a local running ethereum client to generate a new wallet.  Shortly after the application will send a transaction to a smart contract to create a new registry for that ID.  This entry will be a mapping of ID to IPFS hash, so when querying a user by ID you get back a hash that you can use to consult ipfs for the actual meta data of a user. There will be a sign in field as well on this page with fields for ID and password that will link to the application.
+
+### Willing assets
+
+The application looks like a file system where you can upload and track the assets you have uploaded. You can assign IDs to uploaded pictures of an asset. So essentially you will see a folder listing [asset - ipfs multihash - ethereum ID]
 
 Each time you upload an asset it will change the user object for that ID that is hashed and mapped to in the registry contract. So a user object might look like:
 
@@ -39,34 +65,13 @@ Each time you upload an asset it will change the user object for that ID that is
 }
 ```
 
-Now when a lawyer (or authorized ID by the contract) wants to certify that ID 1eTH has died and the assets need to be transferred, he will issue a command to the smart contract like contract.issueDeath('1eTH', {to: contractAddy, gas: 2000})
+### Verifcication 
+
+Now when a lawyer (or authorized ID by the contract) wants to certify that ID 1eTH has died and the assets need to be transferred, he/she will issue a command to the smart contract like contract.issueDeath('1eTH', {to: contractAddy, gas: 2000})
 
 This command will simply move the deceased ID to a list that gives permission to the clients to move the Willed_Assets to their respective ID. The client can have a claim assets button on the app that will generate a new user object with what the blockchain says is valid.
 
-The Alpha client can be accessed here http://localhost:8080/ipfs/QmR2nmPqpMBxyA2msZvnVokiz7EdKZd8g5D325jhqunpWH
-
-## Table of Contents
-
-- [Project Status](#project-status)
-- [How It Works](#how-it-works)
-  - [Uploading / Downloading](#uploading-downloading)
-  - [Seeding](#seeding)
-  - [Challenges](#challenges)
-  - [Payments](#payments)
-  - [Costs](#costs)
-- [Install](#install)
-  - [Dev Server](#dev-server)
-  - [Build Source](#build-source)
-- [Quick Start Guide](#quickstart-guide)
-  - [Requirements](#requirements)
-  - [Testnet](#testnet)
-  - [Init](#init)
-  - [Upload](#upload)
-  - [Seed](#seed)
-- [Contribute](#contribute)
-- [Roadmap](#roadmap)
-- [License](#license)
-
+The Alpha client can be accessed here http://wwww.justwillit.today
 
 ## Project Status
 
@@ -79,14 +84,6 @@ Check the project's [roadmap](https://github.com/nginnever/fileswarm/blob/master
 
 See also [CHANGELOG](https://github.com/nginnever/fileswarm/blob/master/CHANGELOG.md) for what's new!
 
-
-## How It Works
-
-
-#### Uploading-Downloading
-
-
-TODO: Get cost metrics
 
 ## Install
 
