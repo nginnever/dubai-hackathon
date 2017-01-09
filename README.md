@@ -71,7 +71,7 @@ Now when a lawyer (or authorized ID by the contract) wants to certify that ID 1e
 
 This command will simply move the deceased ID to a list that gives permission to the clients to move the Willed_Assets to their respective ID. The client can have a claim assets button on the app that will generate a new user object with what the blockchain says is valid.
 
-The Alpha client can be accessed here http://wwww.justwillit.today
+The Alpha client can be accessed here http://www.justwillit.today
 
 ## Project Status
 
