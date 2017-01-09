@@ -11,7 +11,7 @@ prototype for a distributed asset ledger backed by Ethereum blockchain and IPFS 
 - [How It Works](#how-it-works)
   - [p2p Identification](#p2p-ID)
   - [Registration](#registration)
-  - [Verifcication] (#verifcication)
+  - [Asset Transfer] (#asset-transfer)
 - [Install](#install)
   - [Dev Server](#dev-server)
   - [Build Source](#build-source)
@@ -65,7 +65,7 @@ Each time you upload an asset it will change the user object for that ID that is
 }
 ```
 
-### Verifcication 
+### Asset Transfer 
 
 Now when a lawyer (or authorized ID by the contract) wants to certify that ID 1eTH has died and the assets need to be transferred, he/she will issue a command to the smart contract like contract.issueDeath('1eTH', {to: contractAddy, gas: 2000})
 
