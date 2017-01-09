@@ -21,7 +21,6 @@ prototype for a distributed asset ledger backed by Ethereum blockchain and IPFS 
   - [Init](#init)
 - [Contribute](#contribute)
 - [Roadmap](#roadmap)
-- [License](#license)
 
 
 Hackathon links
@@ -206,8 +205,4 @@ TODO
 - alerts for waiting for mining
 - fix electron build
 - fix js-ipfs
-
-#### License
-
-MIT
 
