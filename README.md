@@ -95,8 +95,8 @@ requirements:
 - npm
 
 ```
-git clone https://github.com/nginnever/fileswarm.git
-cd fileswarm
+git clone https://github.com/nginnever/just-will-it.git
+cd just-will-it
 sudo npm i
 ```
 
@@ -154,11 +154,11 @@ Start geth with the following flags, it is important to allow cors headers on th
 geth --rpc --rpcaddr "localhost" --rpcport 8545 --rpccorsdomain "*" --rpcapi="db,eth,net,web3,personal,web3,debug" --datadir "<your geth install path>/.etherum" --unlock "<coinbase>" --testnet console
 ```
 
-In order to use fileswarm you will need a small amount of ether to start adding yourself to seed contracts and answer challenges. Once challenge cycles have been entered the application will increase the balance of the seeder.
+In order to use just-will-it you will need a small amount of ether to start adding yourself to seed contracts and answer challenges. Once challenge cycles have been entered the application will increase the balance of the seeder.
 
 To obtain Morden testnet ether you can try a faucet here:
 
-``http://icarus.parity.io/rain/<your_ether_address>``
+``http://faucet.ropsten.be:3001/``
 
 or ZeroGox:
 
