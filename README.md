@@ -19,8 +19,6 @@ prototype for a distributed asset ledger backed by Ethereum blockchain and IPFS 
   - [Requirements](#requirements)
   - [Testnet](#testnet)
   - [Init](#init)
-  - [Upload](#upload)
-  - [Seed](#seed)
 - [Contribute](#contribute)
 - [Roadmap](#roadmap)
 - [License](#license)
@@ -176,18 +174,6 @@ With IPFS gateway:
 - navigate to http://localhost:8080/ipfs/QmR2nmPqpMBxyA2msZvnVokiz7EdKZd8g5D325jhqunpWH
 
 The application will initialize a user object to track your files and store it in your IPFS database with a pointer stored in the manager contract for your user account address.
-
-#### Upload
-
-To upload a file simply click on the file selector and choose a file. You will see a Qm... multihash appear as the file is loaded into the application. This file is now broadcast to the IPFS network. Nobody will find this file unless they request it.
-
-Next choose an amount in Wei (lowest Ether denomination) and then click upload. Please allow time for the miners to execute your transaction and your file will appear in the main view.
-
-You will see a multihash of your file, some details of the file, the balance remaining on the file contract, number of seeders hosting your file, and download link that will request your file from IPFS.
-
-#### Seed
-
-To seed select the seed tab from the dashboard. If you have not already you will need to unlock your account with the button in the bottom right of the application. Once unlocked you must then select a max diskspace allowed and slide the amount of space you would like to seed over. Now click seed and you will start to see files appear in the main view. Each hash is a file you are able to seed and your balance will periodically increase as you answer challenges on those files.
 
 #### Contribute
 
