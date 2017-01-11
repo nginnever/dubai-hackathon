@@ -29,7 +29,7 @@ http://www.hackathon.io/blockchain-virtual-govhack/projects
 
 ## How It Works
 
-just Will It works generally as follows.
+just Will It works generally as follows
 
 ### p2p-ID
 The prototype application will generate a p2p ID: This will be an input box for a name, email, and password (optional a profile pic), a message about remembering this password, and a submit button. The ID generated is the same identification used to generate Ethereum transactions.
