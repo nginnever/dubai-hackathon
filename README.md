@@ -88,7 +88,7 @@ sudo npm i
 
 #### Dev-server
 
-Webpack hot reload server
+Webpack hot reload server.
 
 ``webpack-dev-server --host 0.0.0.0 --port 1337``
 
