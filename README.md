@@ -100,11 +100,6 @@ Run from distribution
 
 Load /app/dist/index.html
 
-Electron
-
-currently electron isn't compatible with the ipfs webpack build so it won't work atm. 
-
-``npm run build-osx``
 
 ## Quickstart Guide
 
