@@ -23,7 +23,7 @@ prototype for a distributed asset ledger backed by Ethereum blockchain and IPFS 
 - [Roadmap](#roadmap)
 
 
-Hackathon links.
+Hackathon links...
 
 http://www.hackathon.io/blockchain-virtual-govhack/projects
 
